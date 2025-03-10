@@ -1234,4 +1234,6 @@ networks:
 
 
 --------------------------------------------------------------------------------
-Useful Links : https://tuto.grademe.fr/inception/
+Useful Links :
+- [Tutorial](https://tuto.grademe.fr/inception/)
+- [Infos](https://www.tldraw.com/v/Hs1JFNMOppzpfOxeIZvMJ?d=v-2499.-6297.20343.10844.page)
