@@ -1,4 +1,4 @@
-FROM debian:noble
+FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y sudo nginx openssl
 
