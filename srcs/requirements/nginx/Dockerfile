@@ -17,4 +17,4 @@ COPY  NginxScript.sh /tmp/files/NginxScript.sh
 
 RUN  chmod 777 /tmp/files/NginxScript.sh
 
-CMD  ["/tmp/files/NginxScript.sh"]
+CMD  ["/tmp/files/NginxScript.sh", "-g", "daemon off;"]
