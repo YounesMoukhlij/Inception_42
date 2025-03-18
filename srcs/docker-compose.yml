@@ -2,7 +2,12 @@
 services:
   mariadb:
     image: mariadb:19
-    build: requirements/mariadb
+    build:
+      context: requirements/mariadb
+      args:
+        - DATA_BASE_NAME=${DATA_BASE_NAME}
+        - DATA_BASE_USER=${DATA_BASE_USER}
+        - DATA_BASE_PASS=${DATA_BASE_PASS}
     container_name: mariadb
     restart: always
     volumes:
