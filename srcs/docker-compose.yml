@@ -1,0 +1,51 @@
+
+services:
+  mariadb:
+    image: mariadb:19
+    build: requirements/mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception_network
+    env_file:
+      - .env
+
+
+  wordpress:
+    image: wordpress:19
+    build: requirements/wordpress
+    container_name: wordpress
+    restart: always
+    volumes:
+      - wordpress_data:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+
+  nginx:
+    image: nginx:19
+    build: requirements/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - inception_network
+    volumes:
+      - wordpress_data:/var/www/html  # Share WordPress files with NGINX
+    depends_on:
+      - wordpress
+
+volumes:
+  mariadb_data:
+  wordpress_data:
+
+networks:
+  inception_network:
+    driver: bridge
