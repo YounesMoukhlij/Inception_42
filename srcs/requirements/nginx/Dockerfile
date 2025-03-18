@@ -9,6 +9,5 @@ RUN openssl req -new -x509 -key /etc/nginx/youmoukh.key -out /etc/nginx/youmoukh
 
 COPY nginx.conf /etc/nginx
 
-EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
