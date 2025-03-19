@@ -1,13 +1,13 @@
 
 services:
   mariadb:
-    image: mariadb:19
-    build:
-      context: requirements/mariadb
-      args:
-        - DATA_BASE_NAME=${DATA_BASE_NAME}
-        - DATA_BASE_USER=${DATA_BASE_USER}
-        - DATA_BASE_PASS=${DATA_BASE_PASS}
+    image: mariadb:latest
+    build: requirements/mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}  
+      MARIADB_DATABASE: ${CONFIGURATION_DB_NAME}       
+      MARIADB_USER: ${CONFIGURATION_DB_USER}          
+      MARIADB_PASSWORD: ${CONFIGURATION_DB_PASSWORD}
     container_name: mariadb
     restart: always
     volumes:
@@ -19,7 +19,7 @@ services:
 
 
   wordpress:
-    image: wordpress:19
+    image: wordpress:php8.2-apache
     build: requirements/wordpress
     container_name: wordpress
     restart: always
@@ -33,7 +33,7 @@ services:
       - inception_network
 
   nginx:
-    image: nginx:19
+    image: nginx:latest
     build: requirements/nginx
     container_name: nginx
     restart: always

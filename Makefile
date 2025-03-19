@@ -14,15 +14,13 @@ NC = \033[0m
 
 # ********************************* DEFINE RULES ************************************************ #
 
-all : credit
+all :
 	@mkdir -p /home/${USER}/data/wordpress
 	@mkdir -p /home/${USER}/data/mariadb
 	@mkdir -p /home/${USER}/data/adminer
 	@docker compose -f ./srcs/docker-compose.yml up
 	@echo "\n\n${YELLOW}Nginx image has been built.\n${NC}"
 
-credit :
-	@echo "WELCOME\n"
 
 run :
 	@docker run -d -p 80:80 -p 443:443 --name nginx nginx

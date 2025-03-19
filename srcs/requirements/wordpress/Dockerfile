@@ -36,6 +36,15 @@ RUN sed -i 's/CHNAME/'$CONFIGURATION_DB_NAME'/' /var/www/html/wp-config.php && \
     sed -i 's/CHPASS/'$CONFIGURATION_DB_PASSWORD'/' /var/www/html/wp-config.php && \
     sed -i 's/CHHOST/'$CONFIGURATION_DB_HOST'/' /var/www/html/wp-config.php
 
+
+
+# Copy the wait-for-db.sh script into the container
+COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
+RUN chmod +x /usr/local/bin/wait-for-db.sh
+
+# Wait for MariaDB to be ready
+RUN wait-for-db.sh
+
 # Install WordPress
 RUN wp core install --url=localhost --title=$WP_SITE_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_EMAIL --allow-root
 
