@@ -39,7 +39,7 @@ status:
 	@echo "${GREEN}~~~~~~~~~END~~~~~~~~\n${NC}"
 
 
-clean:
+clean: 
 	@rm -rf /home/${USER}/data
 	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
 	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi

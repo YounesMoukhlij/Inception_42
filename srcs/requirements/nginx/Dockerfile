@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y sudo nginx openssl
+RUN apt-get update && apt-get install -y sudo nginx openssl mariadb-client
 
 RUN openssl genpkey -algorithm RSA -out /etc/nginx/youmoukh.key
 

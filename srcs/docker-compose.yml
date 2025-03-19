@@ -41,17 +41,20 @@ services:
     depends_on:
       - wordpress
 
+
+
+
 volumes:
   mariadb_data:
-    name: mariadb
     driver: local
     driver_opts:
+      type: none
       device: /home/youmoukh/data/mariadb
       o: bind
   wordpress_data:
-    name: wordpress
     driver: local
     driver_opts:
+      type: none
       device: /home/youmoukh/data/wordpress
       o: bind
 
