@@ -1,6 +1,7 @@
 # ********************************* DEFINE CONTAINERS & IMAGES ********************************* #
 CONTAINERS = $(shell docker ps -a -q)
 IMAGES = $(shell docker images -qa)
+VOLUMES = $(shell docker volume ls -q)
 # *********************************************************************************************** #
 
 
@@ -14,13 +15,16 @@ NC = \033[0m
 
 # ********************************* DEFINE RULES ************************************************ #
 
-all :
+all : up
 	@mkdir -p /home/${USER}/data/wordpress
 	@mkdir -p /home/${USER}/data/mariadb
-	@mkdir -p /home/${USER}/data/adminer
-	@docker compose -f ./srcs/docker-compose.yml up
 	@echo "\n\n${YELLOW}Nginx image has been built.\n${NC}"
 
+up:
+	@docker compose -f ./srcs/docker-compose.yml up
+
+down:
+	@docker compose down
 
 run :
 	@docker run -d -p 80:80 -p 443:443 --name nginx nginx
@@ -36,15 +40,21 @@ status:
 
 
 clean:
+	@rm -rf /home/${USER}/data
 	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
 	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi
-	@rm -rf /home/${USER}/data
-	@docker volume rm ${docker volume ls -q}
 	@echo "${YELLOW}All containers and images have been removed.${NC}"
+
+cleanV:
+	@docker volume rm -f ${VOLUMES}
+	@docker network rm  -f $(VOLUMES)
+	@echo "${YELLOW}All Volumes have been removed.${NC}"
+
+
 
 # *********************************************************************************************** #
 
 
 # ********************************* DEFINE PHONY VARIABLES ************************************ #
-.PHONY: all clean
+.PHONY: clean run up down cleanV
 # *********************************************************************************************** #

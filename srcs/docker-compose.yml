@@ -1,13 +1,8 @@
 
 services:
   mariadb:
-    image: mariadb:latest
     build: requirements/mariadb
-    environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}  
-      MARIADB_DATABASE: ${CONFIGURATION_DB_NAME}       
-      MARIADB_USER: ${CONFIGURATION_DB_USER}          
-      MARIADB_PASSWORD: ${CONFIGURATION_DB_PASSWORD}
+    image: mariadb:0.1
     container_name: mariadb
     restart: always
     volumes:
@@ -19,8 +14,8 @@ services:
 
 
   wordpress:
-    image: wordpress:php8.2-apache
     build: requirements/wordpress
+    image: wordpress:0.1
     container_name: wordpress
     restart: always
     volumes:
@@ -33,23 +28,32 @@ services:
       - inception_network
 
   nginx:
-    image: nginx:latest
+    image: nginx:0.1
     build: requirements/nginx
     container_name: nginx
     restart: always
     ports:
-      - "80:80"
       - "443:443"
     networks:
       - inception_network
     volumes:
-      - wordpress_data:/var/www/html  # Share WordPress files with NGINX
+      - wordpress_data:/var/www/html 
     depends_on:
       - wordpress
 
 volumes:
   mariadb_data:
+    name: mariadb
+    driver: local
+    driver_opts:
+      device: /home/youmoukh/data/mariadb
+      o: bind
   wordpress_data:
+    name: wordpress
+    driver: local
+    driver_opts:
+      device: /home/youmoukh/data/wordpress
+      o: bind
 
 networks:
   inception_network:
