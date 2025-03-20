@@ -18,15 +18,9 @@ COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY script.sh /tmp
 
-RUN  echo "younesssssssssssssssssssssssssssssss"
-
 RUN chmod +x /tmp/script.sh
 
 RUN mkdir -p /run/php
     
-
-
-
-
 
 CMD ["/tmp/script.sh"]

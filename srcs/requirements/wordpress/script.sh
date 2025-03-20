@@ -1,13 +1,25 @@
 #!/bin/bash
 
-echo "im sleping"
-sleep 40
-echo " sleping done "
+echo "im sleeping"
+sleep 30
+echo " sleeping done "
+
+
 
 wp core download --allow-root
 
-wp config create --dbname=$DATA_BASE_NAME --dbuser=$DATA_BASE_USER --dbpass=$DATA_BASE_PASS --dbhost=$db_host --allow-root
+wp config create --dbname=$CONFIGURATION_DB_NAME \
+                 --dbuser=$CONFIGURATION_DB_USER \
+                 --dbpass=$CONFIGURATION_DB_PASSWORD \
+                 --dbhost=$CONFIGURATION_DB_HOST --allow-root 
 
-wp core install --url=localhost --title=youmoukh --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_EMAIL --allow-root
+wp core install --url=localhost \
+                --title=youmoukh \
+                --admin_user=$WP_ADMIN_USER \
+                --admin_password=$WP_ADMIN_PASS \
+                --admin_email=$WP_ADMIN_EMAIL --allow-root
+
+#emplate
+#user role author 
 
 /usr/sbin/php-fpm7.4 -F
