@@ -19,7 +19,6 @@ wp core install --url=localhost \
                 --admin_password=$WP_ADMIN_PASS \
                 --admin_email=$WP_ADMIN_EMAIL --allow-root
 
-#emplate
-#user role author 
+wp user create $author_name $author_email --role=author --user_pass=$author_pass --allow-root
 
 /usr/sbin/php-fpm7.4 -F
