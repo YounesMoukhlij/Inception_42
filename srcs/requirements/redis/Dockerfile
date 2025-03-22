@@ -1,49 +1,6 @@
-# FROM   debian:11
+FROM   debian:11
 
-# RUN    apt-get update && apt-get install -y redis
-
-# RUN sed -i "s/bind 127.0.0.1::1/#bind 127.0.0.1::1/g" /etc/redis/redis.conf
+RUN    apt-get update && apt-get install -y redis &&  apt-get clean &&  rm -rf /var/lib/apt/lists/*
 
 
-# RUN chmod -R 777 /etc/redis/*
-
-# RUN  sed -i "s/bind 127.0.0.1::1/#bind 127.0.0.1::1/g" /etc/redis/redis.conf
-# RUN  sed -i "s|maxmemory <bytes>|maxmemory 100mb/g" /etc/redis/redis.conf
-
-# RUN sed -i "s|#maxmemorypolicy noeviction|maxmemorypolicy allkeys-lru|g" /etc/redis/redis.conf
-# RUN sed -i "s/protected-mode yes/protected-mode no/g" /etc/redis/redis.conf
-
-
-# CMD    ["redis-server"]
-
-
-
-
-
-
-
-
-
-
-
-FROM debian:11
-
-# Install Redis and clean up apt cache to reduce image size
-RUN apt-get update && apt-get install -y redis && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Modify Redis configuration
-RUN sed -i "s/bind 127.0.0.1 ::1/#bind 127.0.0.1 ::1/g" /etc/redis/redis.conf && \
-    sed -i "s|maxmemory <bytes>|maxmemory 100mb|g" /etc/redis/redis.conf && \
-    sed -i "s|# maxmemory-policy noeviction|maxmemory-policy allkeys-lru|g" /etc/redis/redis.conf && \
-    sed -i "s/protected-mode yes/protected-mode no/g" /etc/redis/redis.conf
-
-# Ensure proper permissions for Redis configuration files
-RUN chmod 644 /etc/redis/redis.conf
-
-# Expose the default Redis port
-EXPOSE 6379
-
-# Start Redis server
-CMD ["redis-server", "--daemonize no"]
+CMD ["redis-server", "--protected-mode", "no"]

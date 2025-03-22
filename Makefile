@@ -15,20 +15,16 @@ NC = \033[0m
 
 # ********************************* DEFINE RULES ************************************************ #
 
-all : up
-	@mkdir -p /home/${USER}/data/wordpress
-	@mkdir -p /home/${USER}/data/mariadb
-	@echo "\n\n${YELLOW}Nginx image has been built.\n${NC}"
-
-up:
+all :
+	@mkdir -p ~/data/wordpress
+	@mkdir -p ~/data/mariadb
 	@docker compose -f ./srcs/docker-compose.yml up
 
-down:
-	@docker compose down
 
-run :
-	@docker run -d -p 80:80 -p 443:443 --name nginx nginx
-	@echo "\n\n${YELLOW}Nginx container has been started.\n${NC}"
+down:
+	@docker compose  -f ./srcs/docker-compose.yml down
+
+
 
 status:
 	@echo "\n${YELLOW}~~~ Containers : ~~~${NC}"

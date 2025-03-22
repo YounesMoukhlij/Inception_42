@@ -48,6 +48,8 @@ services:
     restart: always
     networks:
       - inception_network
+    depends_on:
+      - wordpress
 
 
 
