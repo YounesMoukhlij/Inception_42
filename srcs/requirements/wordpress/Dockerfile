@@ -2,7 +2,7 @@ FROM debian:11
 
 # Install necessary packages
 RUN apt-get update
-RUN apt install -y curl php-fpm php-mysql
+RUN apt install -y sudo curl php-fpm php-mysql
 
 
 RUN mkdir -p /var/www/html

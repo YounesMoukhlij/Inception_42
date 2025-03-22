@@ -20,7 +20,7 @@ wp user create $author_name $author_email --role=contributer --user_pass=$author
 
 
 # Install and activate the Redis Object Cache plugin BONUS
-sudo -u www-data wp plugin install redis-cache --activate
-sudo -u www-data wp redis enable
+cd /var/www/html && sudo -u www-data wp plugin install redis-cache --activate
+cd /var/www/html && sudo -u www-data wp redis enable
 
 /usr/sbin/php-fpm7.4 -F
