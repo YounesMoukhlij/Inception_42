@@ -43,6 +43,7 @@ services:
       - wordpress
   redis:
     image: redis:0.1
+    build: requirements/redis
     container_name: redis
     restart: always
     networks:
