@@ -18,6 +18,14 @@
 
 
 
+
+
+
+
+
+
+
+
 FROM debian:11
 
 # Install Redis and clean up apt cache to reduce image size
