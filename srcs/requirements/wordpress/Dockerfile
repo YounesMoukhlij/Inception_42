@@ -21,6 +21,7 @@ COPY script.sh /tmp
 RUN chmod +x /tmp/script.sh
 
 RUN mkdir -p /run/php
-    
+
+
 
 CMD ["/tmp/script.sh"]
