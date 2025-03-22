@@ -1,9 +1,7 @@
 FROM debian:11
 
 # Install necessary packages
-RUN apt-get update
-RUN apt install -y sudo curl php-fpm php-mysql
-
+RUN apt-get update && apt install -y sudo curl php-fpm php-mysql
 
 RUN mkdir -p /var/www/html
 
@@ -18,6 +16,8 @@ mv wp-cli.phar /usr/local/bin/wp
 
 COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
+COPY wp-config.php  /var/www/html/wp-config.php
+
 COPY script.sh /tmp
 
 RUN mkdir -p /run/php
@@ -25,5 +25,7 @@ RUN mkdir -p /run/php
 RUN chmod 777 /tmp/script.sh
 
 RUN chmod 777 /run/php/
+
+
 
 CMD ["/tmp/script.sh"]

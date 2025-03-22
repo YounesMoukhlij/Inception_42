@@ -25,6 +25,7 @@ services:
       - .env
     depends_on:
       - mariadb
+      - redis
     networks:
       - inception_network
 
@@ -48,8 +49,6 @@ services:
     restart: always
     networks:
       - inception_network
-    depends_on:
-      - wordpress
 
 
 

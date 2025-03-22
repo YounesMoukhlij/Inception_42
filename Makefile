@@ -15,10 +15,12 @@ NC = \033[0m
 
 # ********************************* DEFINE RULES ************************************************ #
 
-all :
-	@mkdir -p ~/data/wordpress
-	@mkdir -p ~/data/mariadb
+all: create_data
 	@docker compose -f ./srcs/docker-compose.yml up
+
+create_data:
+	@mkdir -p /home/youmoukh/data/wordpress
+	@mkdir -p /home/youmoukh/data/mariadb
 
 
 down:
@@ -36,7 +38,9 @@ status:
 
 
 clean: 
-	@rm -rf /home/${USER}/data
+	@rm -rf /home/youmoukh/data
+	@rm -rf /home/youmoukh/data
+
 	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
 	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi
 	@echo "${YELLOW}All containers and images have been removed.${NC}"
