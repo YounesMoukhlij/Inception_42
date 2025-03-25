@@ -2,21 +2,29 @@
 
 sleep 20
 
+
+
+USER_PASSWORD=$(cat /run/secrets/user_pass)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_pass)
+DB_PASSWORD=$(cat /run/secrets/db_pass)
+
+
+
 wp core download --allow-root
 
 wp config create --dbname=$CONFIGURATION_DB_NAME \
                  --dbuser=$CONFIGURATION_DB_USER \
-                 --dbpass=$CONFIGURATION_DB_PASSWORD \
+                 --dbpass=$DB_PASSWORD \
                  --dbhost=$CONFIGURATION_DB_HOST --allow-root
 
 wp core install --url=$WP_SITE_URL \
                 --title=$WP_SITE_TITLE \
                 --admin_user=$WP_ADMIN_USER \
-                --admin_password=$WP_ADMIN_PASS \
+                --admin_password=$WP_ADMIN_PASSWORD \
                 --admin_email=$WP_ADMIN_EMAIL --allow-root
             
 
-wp user create $USER_NAME $USER_MAIL --role=$ROLE --user_pass=$USER_PASS --allow-root
+wp user create $USER_NAME $USER_MAIL --role=$ROLE --user_pass=$USER_PASSWORD --allow-root
 
 
 chown -R www-data:www-data /var/www/html

@@ -2,6 +2,7 @@
 CONTAINERS = $(shell docker ps -a -q)
 IMAGES = $(shell docker images -qa)
 VOLUMES = $(shell docker volume ls -q)
+NETWORK = $(shell docker network ls -q)
 # *********************************************************************************************** #
 
 
@@ -37,14 +38,13 @@ status:
 	@echo "${GREEN}~~~~~~~~~END~~~~~~~~\n${NC}"
 
 
-clean: 
+clean: down
 	@rm -rf /home/youmoukh/data
 	@rm -rf /home/youmoukh/data
 	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
 	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi
-	@docker network rm  -f $(VOLUMES)
 	@docker volume rm -f ${VOLUMES}
-	@echo "${YELLOW}All containers, images and Volumes have been removed.${NC}"
+	@echo "${YELLOW}All Containers, Images, Network and Volumes have been removed.${NC}"
 
 
 
