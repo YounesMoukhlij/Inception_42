@@ -42,12 +42,9 @@ clean:
 	@rm -rf /home/youmoukh/data
 	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
 	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi
-	@echo "${YELLOW}All containers and images have been removed.${NC}"
-
-cleanV:
-	@docker volume rm -f ${VOLUMES}
 	@docker network rm  -f $(VOLUMES)
-	@echo "${YELLOW}All Volumes have been removed.${NC}"
+	@docker volume rm -f ${VOLUMES}
+	@echo "${YELLOW}All containers, images and Volumes have been removed.${NC}"
 
 
 

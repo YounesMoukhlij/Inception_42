@@ -13,7 +13,6 @@ services:
     env_file:
       - .env
 
-
   wordpress:
     build: requirements/wordpress
     image: wordpress:0.1
@@ -44,8 +43,8 @@ services:
       - wordpress
 
   redis:
-    image: redis:0.1
     build: requirements/redis
+    image: redis:0.1
     container_name: redis
     restart: always
     networks:
