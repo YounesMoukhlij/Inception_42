@@ -1,8 +1,4 @@
-# ********************************* DEFINE CONTAINERS & IMAGES ********************************* #
-CONTAINERS = $(shell docker ps -a -q)
-IMAGES = $(shell docker images -qa)
-VOLUMES = $(shell docker volume ls -q)
-NETWORK = $(shell docker network ls -q)
+
 # *********************************************************************************************** #
 
 
@@ -40,11 +36,13 @@ status:
 
 clean: down
 	@rm -rf /home/youmoukh/data
-	@rm -rf /home/youmoukh/data
-	@if [ -n "$(CONTAINERS)" ]; then docker stop $(CONTAINERS); docker rm $(CONTAINERS); fi
-	@if [ -n "$(IMAGES)" ]; then docker rmi -f $(IMAGES); fi
-	@docker volume rm -f ${VOLUMES}
+	@docker stop $(shell docker ps -aq) 2>/dev/null || true
+	@docker rm $(shell docker ps -aq) 2>/dev/null || true
+	@docker rmi -f $(shell docker images -q) 2>/dev/null || true
+	@docker volume rm -f $(shell docker volume ls -q) 2>/dev/null || true
+	@docker network rm -f $(shell docker network ls -q) 2>/dev/null || true
 	@echo "${YELLOW}All Containers, Images, Network and Volumes have been removed.${NC}"
+
 
 
 

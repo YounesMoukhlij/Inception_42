@@ -1,12 +1,8 @@
 #!/bin/bash
 
-rm -rf /var/lib/mysql/*
-
-mysql_install_db
-
 service mariadb start
 
-sleep 10
+sleep 5
 
 DB_PASS=$(cat /run/secrets/db_pass)
 
@@ -18,5 +14,6 @@ mariadb -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
-exec mysqld_safe --user=mysql
+
+mysqld_safe --user=mysql
 
